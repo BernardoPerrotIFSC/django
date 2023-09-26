@@ -25,9 +25,29 @@ def create(request):
 
 def index(request, id):
     lista = ToDoList.objects.get(id=id)
+
+    if request.method == 'POST':
+        if request.POST.get("save"):
+            for item in lista.item_set.all():
+                if request.POST.get("c"+ str(item.id)) == "clicked":
+                    item.complete = True
+                else:
+                    item.complete = False
+
+                item.save()
+        elif request.POST.get("newItem"):
+            text = request.POST.get("new")
+
+            if len(text)>2:
+                lista.item_set.create(text = text, complete= False)
+            else:
+                print("invalid")
+            
+        return redirect("/%i" % lista.id)
+
     return render(request, 'main/list.html', {'lista':lista})
 
-def home(reponse):
-    return render(reponse, 'main/home.html')
+def home(response):
+    return render(response, 'main/home.html')
 
 
