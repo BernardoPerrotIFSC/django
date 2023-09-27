@@ -17,3 +17,8 @@ django-admin startapp main - criar novo app
 settings.py installed_app['main']
 admin
 python manage.py shell
+
+python manage.py startapp register; ou django-admin startapp register
+
+pip install django-crispy-forms
+pip install crispy-bootstrap4
